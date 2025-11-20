@@ -72,6 +72,19 @@ export default function AppLayout({ children }) {
                 },
             ],
         },
+
+        // ⭐ SIDEBAR PENGAJUAN JURNAL
+        {
+            title: "Pengajuan Jurnal",
+            items: [
+                {
+                    title: "Daftar Jurnal",
+                    url: route("pengajuan.jurnal.daftar"),
+                    icon: Icon.IconBook,
+                },
+            ],
+        },
+
         {
             title: "Admin",
             items: [
@@ -99,17 +112,15 @@ export default function AppLayout({ children }) {
                     appName={appName}
                     variant="inset"
                 />
+
                 <SidebarInset>
-                    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height) sticky top-0 z-50 bg-background/95 backdrop-blur-sm">
-                        <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
+                    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur-sm sticky top-0 z-50">
+                        <div className="flex w-full items-center gap-1 px-4 lg:px-6">
                             <SidebarTrigger className="-ml-1" />
-                            <Separator
-                                orientation="vertical"
-                                className="mx-2 data-[orientation=vertical]:h-4"
-                            />
-                            <h1 className="text-base font-medium">
-                                {pageName}
-                            </h1>
+                            <Separator orientation="vertical" className="mx-2 h-4" />
+
+                            <h1 className="text-base font-medium">{pageName}</h1>
+
                             <div className="ml-auto flex items-center gap-2">
                                 <Select
                                     className="capitalize"
@@ -123,10 +134,7 @@ export default function AppLayout({ children }) {
                                         <SelectGroup>
                                             <SelectLabel>Tema</SelectLabel>
                                             {colorThemes.map((item) => (
-                                                <SelectItem
-                                                    key={`theme-${item}`}
-                                                    value={item}
-                                                >
+                                                <SelectItem key={item} value={item}>
                                                     {item}
                                                 </SelectItem>
                                             ))}
@@ -134,11 +142,7 @@ export default function AppLayout({ children }) {
                                     </SelectContent>
                                 </Select>
 
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    onClick={toggleTheme}
-                                >
+                                <Button variant="ghost" size="icon" onClick={toggleTheme}>
                                     {theme === "light" ? (
                                         <Sun className="h-4 w-4" />
                                     ) : (
@@ -148,15 +152,17 @@ export default function AppLayout({ children }) {
                             </div>
                         </div>
                     </header>
+
                     <div className="flex flex-1 flex-col">
                         <div className="@container/main flex flex-1 flex-col gap-2">
-                            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-4 md:px-6">
+                            <div className="flex flex-col gap-4 py-4 px-4 md:px-6 md:py-6">
                                 {children}
                             </div>
                         </div>
                     </div>
                 </SidebarInset>
             </SidebarProvider>
+
             <Toaster richColors position="top-center" />
         </>
     );
